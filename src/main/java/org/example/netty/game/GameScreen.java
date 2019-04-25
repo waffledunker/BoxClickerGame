@@ -5,39 +5,54 @@
  */
 package org.example.netty.game;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
  * @author alpalpalapalallapala
  */
-public class GameScreen extends JFrame {
-
-    
+public class GameScreen extends JFrame implements ActionListener {
 
 
-    public  GameScreen(int width, int height ){
-        super.setTitle("GameScreen");
-        super.setSize(width,height);
-        super.setLocation(100,100);
-        super.setResizable(false);
-        super.add(new Contents());
-        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        super.setVisible(true);
+
+    public  GameScreen(int width, int height){
+       
+        
+        JFrame jf = new JFrame();
+        jf.setTitle("GameScreen");
+        jf.setSize(width,height);
+        jf.setLocation(100,100);
+        jf.setResizable(false);
+        jf.add(new Contents());
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.setVisible(true);
         
     }
  
     
     public static void main (String[] args){
-        GameCommands gs = new GameCommands();
-        
+       
         Scanner x = new Scanner(System.in);
         System.out.println("Enter width then height of gamescreen: ");
         int width = x.nextInt();
         int height = x.nextInt();
-        new GameScreen(width,height);
+       GameScreen gs = new GameScreen(width,height);
+       
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       
     }
    
 }

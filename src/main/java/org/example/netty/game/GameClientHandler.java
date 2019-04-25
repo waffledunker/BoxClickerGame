@@ -5,7 +5,6 @@
  */
 package org.example.netty.game;
 
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelInboundMessageHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 /**
@@ -15,6 +14,7 @@ import io.netty.channel.ChannelHandlerContext;
 
 public class GameClientHandler extends ChannelInboundMessageHandlerAdapter<String> {
 
+    @Override
     public void messageReceived(ChannelHandlerContext arg0, String arg1) throws Exception{  
         
         System.out.println(arg1);  // incoming message print to screen

@@ -8,22 +8,34 @@ package org.example.netty.game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
  * @author alpalpalapalallapala
  */
-public  class Contents extends  JPanel{
+public  class Contents extends  JPanel implements ActionListener{
+    
+    Random rand ;
+    private Timer t; // variable to refresh rate 
+   
+    
     
     public Contents (){
         super.setDoubleBuffered(true);
+        t = new Timer(getRandomNumber(), this);  // 7ms refresh rate
+        t.start();
         
     }
       public  int getRandomNumber(){  // random number generator via time
-        Random rand = new Random(System.currentTimeMillis()*735);
-        int x = rand.nextInt(500);
+         rand = new Random(System.currentTimeMillis()*735);
+        int x = rand.nextInt(300);
         return x;
     }
       
@@ -63,40 +75,51 @@ public  class Contents extends  JPanel{
       public void randShape(int x, Graphics g){
           x = x % 2;
           int y = getRandomNumber();
+          int dp1[] ={getRandomNumber(),getRandomNumber(),getRandomNumber()};
+          int dp2[] = {getRandomNumber(),getRandomNumber(),getRandomNumber()};
+          
          Graphics2D g2d = (Graphics2D) g;
          
 
           switch(x){
               case 0:
                   g2d.fillRect(initializeValue(y),initializeValue(y),initializeValue(y),initializeValue(y));
-                  
+                  break;
               case 1:
                   g2d.fillOval(initializeValue(y),initializeValue(y),initializeValue(y),initializeValue(y));
-                  
+                  break;
+           
               default:
                   break;
                   
           }
       }
+      
     
     @Override
+    
     public void paintComponent(Graphics g){
         
         Graphics2D g2d =  (Graphics2D) g;
-        int i = 0;
+        super.paintComponent(g);
         
         int randC = getRandomNumber(); // randomColorGenerator
        Color rrandC = randColor(randC);
          g2d.setColor(rrandC);
-        
-         while(i < 50){
-         randShape(getRandomNumber(),g);
-         i++;
-    }
+
+             randShape(getRandomNumber(),g); // doenst work on while loop for some reason
          
-        
-        
-        
+
+    }
+
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       
+             repaint();  // infinite loop
+   
+   
     }
 
    

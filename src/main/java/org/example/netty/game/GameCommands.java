@@ -17,12 +17,13 @@ public class GameCommands  {
     
     public GameCommands(){
            
+        String s = "CHAT";
         
     }
     
    public String parseMessage(String s ){  // parse messages and do things.
        
-       String delims = "[[]]+"; // regex
+       String delims = "/^[(a-z)+(0-9)]"; // regex
        String [] tokens = s.split(delims);
        String command = " ";
        
@@ -39,8 +40,11 @@ public class GameCommands  {
            case "POINTS":
                command = tokens[i];
                break;
+           case  "END-CHAT":
+           command = tokens[i];
+           break;
            default:
-               command = " ";
+               command = "CHAT";
                break;
        }
            

@@ -52,8 +52,8 @@ public class GameServerHandler extends ChannelInboundMessageHandlerAdapter<Strin
             
                 if(channel != incoming){
                 
-                        channel.write("[" + incoming.remoteAddress() + "]" + "["+ message +"]"+ "\n" );  // print message to client screen except sender's
-                        System.out.println("[" + incoming.remoteAddress() + "]" + "["+ message +"]"+ "\n" );
+                        channel.write("[ " + incoming.remoteAddress() + "]:" + "["+ message +"]"+ "\n" );  // print message to client screen except sender's
+                        System.out.println("[" + incoming.remoteAddress() + "]:" + "["+ message +"]"+ "\n" );
                 }
                 
             
