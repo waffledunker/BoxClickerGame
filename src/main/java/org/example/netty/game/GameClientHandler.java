@@ -13,11 +13,18 @@ import io.netty.channel.ChannelHandlerContext;
  */
 
 public class GameClientHandler extends ChannelInboundMessageHandlerAdapter<String> {
+    
+    MainScreen y;
+    
+    public GameClientHandler(MainScreen y){
+        this.y = y;
+    }
 
     @Override
     public void messageReceived(ChannelHandlerContext arg0, String arg1) throws Exception{  
         
-        System.out.println(arg1);  // incoming message print to screen
+        y.txtarea.append(arg1 + "\n");
+        System.out.println(arg1 + "\n");  // incoming message print to screen
     }
     
 }

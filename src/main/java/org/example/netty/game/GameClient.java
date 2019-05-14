@@ -19,9 +19,10 @@ import java.io.InputStreamReader;
  * @author alpalpalapalallapala
  */
 public class GameClient {
+    static  MainScreen y = MainScreen.getInstance();
     
     public static void main(String [] args) throws InterruptedException, IOException{
-        new GameClient("localhost", 1234).run();
+        new GameClient("localhost", 1234, y).run();
     }
     
     
@@ -29,9 +30,10 @@ public class GameClient {
     private final int port;
     
     //constructor
-    public GameClient(String host, int port){
+    public GameClient(String host, int port, MainScreen y){
         this.host = host;
         this.port = port;
+        
     }
     
     public void run() throws InterruptedException, IOException{
@@ -41,7 +43,7 @@ public class GameClient {
             Bootstrap bootstrap = new Bootstrap()
                     .group(group)
                     .channel(NioSocketChannel.class)
-                    .handler(new GameClientInitializer());
+                    .handler(new GameClientInitializer(y));
             
             Channel channel = bootstrap.connect(host,port).sync().channel();
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));

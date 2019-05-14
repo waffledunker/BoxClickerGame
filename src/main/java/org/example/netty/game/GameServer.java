@@ -15,15 +15,21 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * @author alpalpalapalallapala
  */
 public class GameServer {
+  static  MainScreen x = MainScreen.getInstance();
     
     public static void main (String[] args) throws InterruptedException{
-        new GameServer(1234).run();
+       
+         
+         
+        
+        new GameServer(1234, x).run();
     }
     
     private final int port;
     
-    public GameServer(int port){
+    public GameServer(int port, MainScreen x){
         this.port = port;
+         
     }
 
     
@@ -36,7 +42,7 @@ public class GameServer {
             ServerBootstrap bootstrap = new ServerBootstrap()
                     .group(bossGroup,workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .childHandler(new ChatServerInitializer());
+                    .childHandler(new GameServerInitializer(x));
             
             bootstrap.bind(port).sync().channel().closeFuture().sync();
             

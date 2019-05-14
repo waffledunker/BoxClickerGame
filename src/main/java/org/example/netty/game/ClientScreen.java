@@ -5,39 +5,43 @@
  */
 package org.example.netty.game;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
+import java.util.Scanner;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
  * @author alpalpalapalallapala
  */
-public class GameScreen extends JFrame implements ActionListener {
+public class ClientScreen  extends JFrame implements ActionListener{
+    
+    JFrame jf = new JFrame();
+    
 
-        JFrame jf = new JFrame();
-        
-
-    GameScreen(int width, int height, Contents x){
-       
-
-        jf.setTitle("Game");
-        jf.setSize(width,height);
-        jf.setLocation(500,250);
+    public ClientScreen(){
+         jf.setTitle("Game");
+        jf.setSize(700,700);
+        jf.setLocation(100,100);
         jf.setResizable(false);
-        //adding contents of the game to the screen
-        jf.add(x);
+        jf.add(new Contents());
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setVisible(true);
         
     }
-
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-       //click operation comes here
+        
+        
     }
     
     
-   
 }

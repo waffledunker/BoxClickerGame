@@ -13,7 +13,8 @@ import io.netty.channel.Channel;
  */
 public class GameCommands  {
     
-    
+    // singleton
+    private static final GameCommands x = new GameCommands();
     
     public GameCommands(){
            
@@ -52,6 +53,10 @@ public class GameCommands  {
        
        return command;
        
+   }
+   
+   public static GameCommands getInstance(){
+       return x;
    }
     
     
