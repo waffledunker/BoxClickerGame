@@ -17,22 +17,25 @@ import io.netty.handler.codec.string.StringEncoder;
  *
  * @author alpalpalapalallapala
  */
-public class GameClientInitializer extends ChannelInitializer<SocketChannel> {
-    MainScreen y;
+public class GameServerInitializer extends ChannelInitializer<SocketChannel> {
+    //singleton
+    MainScreen x = MainScreen.getInstance();
     
-    public GameClientInitializer(MainScreen y){
-        this.y = y;
+    
+    public GameServerInitializer(MainScreen x){
+        this.x = x;
     }
 
   @Override
   protected void initChannel(SocketChannel arg0) throws Exception {
+      
       ChannelPipeline pipeline = arg0.pipeline();
       
-      pipeline.addLast("framer",new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
-      pipeline.addLast("decoder",new StringDecoder());
-      pipeline.addLast("encoder",new StringEncoder());
-     
-      pipeline.addLast("handler", new GameClientHandler(y));
+      pipeline.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+      pipeline.addLast("decoder", new StringDecoder());
+      pipeline.addLast("encoder", new StringEncoder());
+      
+      pipeline.addLast("handler", new GameServerHandler(x));
   }
     
 }

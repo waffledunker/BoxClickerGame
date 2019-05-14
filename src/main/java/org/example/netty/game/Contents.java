@@ -25,17 +25,20 @@ public  class Contents extends  JPanel implements ActionListener{
     Random rand ;
     private Timer t; // variable to refresh rate 
    
-    
+     //singleton
+   private static final Contents x = new Contents();
+   
+   
     
     public Contents (){
         super.setDoubleBuffered(true);
-        t = new Timer(getRandomNumber(), this);  // 7ms refresh rate
+        t = new Timer(250, this);  // random refresh rate
         t.start();
         
     }
       public  int getRandomNumber(){  // random number generator via time
          rand = new Random(System.currentTimeMillis()*735);
-        int x = rand.nextInt(300);
+        int x = rand.nextInt(350);
         return x;
     }
       
@@ -72,21 +75,22 @@ public  class Contents extends  JPanel implements ActionListener{
           }
       }
       
-      public void randShape(int x, Graphics g){
+      public void randShape(int x, Graphics g) throws InterruptedException{
           x = x % 2;
-          int y = getRandomNumber();
-          int dp1[] ={getRandomNumber(),getRandomNumber(),getRandomNumber()};
-          int dp2[] = {getRandomNumber(),getRandomNumber(),getRandomNumber()};
-          
+          int xx = 0;
+          int y = 0;
+
          Graphics2D g2d = (Graphics2D) g;
          
 
           switch(x){
               case 0:
-                  g2d.fillRect(initializeValue(y),initializeValue(y),initializeValue(y),initializeValue(y));
+                  g2d.fillRect(initializeValue(xx),initializeValue(y),initializeValue(xx),initializeValue(y));
+                  
                   break;
               case 1:
-                  g2d.fillOval(initializeValue(y),initializeValue(y),initializeValue(y),initializeValue(y));
+                  g2d.fillOval(initializeValue(xx),initializeValue(y),initializeValue(xx),initializeValue(y));
+                  
                   break;
            
               default:
@@ -106,9 +110,12 @@ public  class Contents extends  JPanel implements ActionListener{
         int randC = getRandomNumber(); // randomColorGenerator
        Color rrandC = randColor(randC);
          g2d.setColor(rrandC);
-
-             randShape(getRandomNumber(),g); // doenst work on while loop for some reason
-         
+               
+            try {
+                randShape(getRandomNumber(),g); // doenst work on while loop for some reason
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Contents.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
     }
 
@@ -116,11 +123,21 @@ public  class Contents extends  JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       
+        
              repaint();  // infinite loop
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Contents.class.getName()).log(Level.SEVERE, null, ex);
+        }
    
    
     }
+    
+    //singleton
+   public static Contents getInstance(){
+       return x;
+   }
 
    
 }
